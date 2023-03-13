@@ -1,36 +1,37 @@
+import 'package:Gatitos/providers/breed_provider.dart';
+import 'package:Gatitos/widgets/card_breed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:Gatitos/models/cat_model.dart';
-import 'package:Gatitos/providers/cat_provider.dart';
 import 'package:Gatitos/widgets/card_cat_widget.dart';
 import 'package:Gatitos/widgets/movie_horizontal.dart';
 
-class HomePage extends StatelessWidget {
+import '../models/breed_model.dart';
+import '../providers/cat_fav_provider.dart';
+
+class BreedInfo extends StatelessWidget {
   // const HomePage({super.key});
 
-  final catProvider = CatProvider();
+  final breedProvider = BreedProvider();
 
   @override
   Widget build(BuildContext context) {
-    catProvider.getCats();
+    final Cat cat = ModalRoute.of(context)!.settings.arguments as Cat;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gatos'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pushNamed(context, 'fav'), child: Text('Favoritos'), style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(Colors.white)),)
-        ],
+        title: Text('Raza'),
       ),
-      body: _crearLista(),
+      body: _crearInfoRaza(cat),
     );
   }
 
   // Crear lista
-  Widget _crearLista() {
-    
+  Widget _crearInfoRaza(Cat cat) {
     return FutureBuilder(
-      future: catProvider.getCats(),
-      builder: (context, AsyncSnapshot<List<Cat>> snapshot) {
+      future: breedProvider.getCatBreed(cat),
+      builder: (context, AsyncSnapshot<CatBreed> snapshot) {
         if (snapshot.hasData) {
-          return CardCat(cats: snapshot.data!);
+          return CardBreed(catBreed: snapshot.data!, cat: cat,);
         } else {
           return Container(
             height: 400,

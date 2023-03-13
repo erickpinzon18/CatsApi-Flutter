@@ -1,20 +1,22 @@
+import 'package:Gatitos/providers/cat_fav_provider.dart';
 import 'package:Gatitos/providers/cat_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:Gatitos/models/cat_model.dart';
 
-class CardSwiper extends StatefulWidget {
+class CardFavCat extends StatefulWidget {
   final List<Cat> cats;
 
-  CardSwiper({super.key, required this.cats});
+  CardFavCat({super.key, required this.cats});
 
   @override
-  State<CardSwiper> createState() => _CardSwiperState();
+  State<CardFavCat> createState() => _CardFavCatState();
 
 }
 
-class _CardSwiperState extends State<CardSwiper> {
+class _CardFavCatState extends State<CardFavCat> {
 
+  final _catFavProvider = CatFavProvider();
   final _scrollController = ScrollController();
   int _globalIndex = 0;
   
@@ -106,20 +108,11 @@ class _CardSwiperState extends State<CardSwiper> {
                   Navigator.pushNamed(context, 'detail', arguments: cat);
                 }), 
                 child: Text('Información')
-              ),
-              IconButton(onPressed: () {/* Añadir a favoritos */}, icon: Icon(Icons.favorite), )
+              )
             ],
           )
         ],
       ),
     );
   }
-
-  /*
-  void getMoreCats() async {
-    final List<Cat> newCatList = await CatProvider().getCats();
-
-    newCatList.forEach((cat) => widget.cats.add(cat));
-    print('se añadieron gatos');
-  }*/
 }

@@ -1,3 +1,5 @@
+import 'package:Gatitos/pages/breed_info_page.dart';
+import 'package:Gatitos/pages/fav_page.dart';
 import 'package:flutter/material.dart';
 import 'package:Gatitos/pages/home_page.dart';
 import 'package:Gatitos/pages/cat_detail_page.dart';
@@ -15,7 +17,9 @@ class MyApp extends StatelessWidget {
       initialRoute: 'home',
       routes: {
         'home': (context) => HomePage(),
+        'fav': (context) => FavPage(),
         'detail': (context) => CatDetail(),
+        'breed': (context) => BreedInfo(),
       },
     );
   }

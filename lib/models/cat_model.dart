@@ -16,9 +16,10 @@ class Cats {
 class Cat {
   String? id;
   String? url;
-  double? width;
-  double? height;
+  int? width;
+  int? height;
 
+  String? breedId;
   String? breedName;
   String? temperament;
   String? origin;
@@ -32,6 +33,7 @@ class Cat {
     this.width,
     this.height,
     
+    this.breedId,
     this.breedName,
     this.temperament,
     this.origin,
@@ -42,9 +44,10 @@ class Cat {
   Cat.fromJsonMap(Map<String, dynamic> json) {
     id = json['id'];
     url = json['url'];
-    width = json['width'] / 1;
-    height = json['height'] / 1;
+    width = json['width'];
+    height = json['height'];
 
+    breedId = json['breeds'][0]['id'];
     breedName = json['breeds'][0]['name'];
     temperament = json['breeds'][0]['temperament'];
     origin = json['breeds'][0]['origin'];
@@ -60,6 +63,4 @@ class Cat {
       return url;
     }
   }
-
-  getCatInfo() {}
 }

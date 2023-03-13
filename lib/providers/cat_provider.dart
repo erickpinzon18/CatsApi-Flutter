@@ -6,23 +6,9 @@ import 'package:Gatitos/models/cat_model.dart';
 class CatProvider {
   String _url = 'api.thecatapi.com';
   String _api_key = 'live_mcwGebtrOoyL9hbpWE8Iin8EC0QpbzCjg3clI1Dj0pSUShpELIdmu6DhubWHH6Jt';
-  int _limit = 2; // * CAMBIAR LUEGO XD
+  int _limit = 5; 
 
   List<Cat> _cats = [];
-
-  // Declaramos el controlador del stream
-  final _catStreamController = StreamController<List<Cat>>.broadcast();
-
-  // Método para cerrar el stream
-  void disposeStream() {
-    _catStreamController.close();
-  }
-
-  // Funcion que hace el sink (inserta data al stream)
-  Function(List<Cat>) get catSink => _catStreamController.sink.add;
-
-  // Funcion que escucha la data del stream
-  Stream<List<Cat>> get catStream => _catStreamController.stream;
 
   // Método que hace peticion a la api catApi
   Future<List<Cat>> getCats() async {
@@ -53,41 +39,4 @@ class CatProvider {
 
     return catAllInfo;
   }
-
-
-
-  /*
-  // Método para obtener peliculas populares
-  Future<List<Pelicula>> getPopulares() async {
-    _popularesPage++;
-
-    // Creamos la URL de la peticion
-    final url = Uri.https(
-      _url,
-      '3/movie/popular',
-      {
-        'api_key': _apikey,
-        'language': _language,
-        'page': _popularesPage.toString()
-      },
-    );
-
-    // Obtenemos la resp
-    final resp = await http.get(url);
-
-    // Decodificamos la respuesta
-    final decodedData = json.decode(resp.body);
-
-    print(decodedData['results']);
-    final peliculas = new Peliculas.fromJsonList(decodedData['results']);
-
-    print(peliculas.items[0].title);
-
-    final respuesta = peliculas.items;
-
-    _populares.addAll(respuesta);
-    popularesSink(_populares);
-
-    return respuesta;
-  }*/
 }
